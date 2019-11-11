@@ -15,8 +15,10 @@ export default class MyComponent extends LightningElement {
 ```
 
 ## Build Process
-I did this by hand, but it could probably be scripted without too much effort.
-
 1. Run the following command with the [lodash CLI](https://www.npmjs.com/package/lodash-cli): `lodash modularize exports=es -o ./`
-2. Rename all files ending in `<filename>.default.js` to `<filename>Default.js`, renaming imports in each file appropriately. The component will fail to compile if a filename contains multiple `.`s, not sure if this is called out in the documentation anywhere...
+2. Rename all default files from `<filename>.default.js` to `<filename>Default.js`, updating imports in each file appropriately. The component will fail to compile if a filename contains multiple `.`s—although not explicitly stated in the documentation, it seems that filenames have the same [restrictions as directory names](https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.create_components_folder) (excluding the extension).
 3. Create a new `modules` directory and move all files except `lodash.js` and `lodashDefault.js` into it, renaming imports in each file appropriately.
+
+## Future Considerations
+- Script the build process
+- Include `lodash/fp` modules
